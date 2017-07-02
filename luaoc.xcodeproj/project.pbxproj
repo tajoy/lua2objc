@@ -7,24 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B1A590631F0899BF00E78636 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B1A590621F0899BF00E78636 /* main.m */; };
+		B126A6471F090B7F00FDC098 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = B126A6461F090B7F00FDC098 /* main.mm */; };
+		B126A6481F0912BC00FDC098 /* test in CopyFiles */ = {isa = PBXBuildFile; fileRef = B126A6441F08CCED00FDC098 /* test */; };
+		B126A6491F0912BC00FDC098 /* src in CopyFiles */ = {isa = PBXBuildFile; fileRef = B126A63E1F08C7AE00FDC098 /* src */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		B1A5905D1F0899BF00E78636 /* CopyFiles */ = {
+		B126A6421F08C9C200FDC098 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			dstPath = "";
+			dstSubfolderSpec = 16;
 			files = (
+				B126A6481F0912BC00FDC098 /* test in CopyFiles */,
+				B126A6491F0912BC00FDC098 /* src in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B126A63E1F08C7AE00FDC098 /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; path = src; sourceTree = "<group>"; };
+		B126A6441F08CCED00FDC098 /* test */ = {isa = PBXFileReference; lastKnownFileType = folder; path = test; sourceTree = "<group>"; };
+		B126A6461F090B7F00FDC098 /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = SOURCE_ROOT; };
 		B1A5905F1F0899BF00E78636 /* luaoc */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = luaoc; sourceTree = BUILT_PRODUCTS_DIR; };
-		B1A590621F0899BF00E78636 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,8 +47,11 @@
 		B1A590561F0899BF00E78636 = {
 			isa = PBXGroup;
 			children = (
+				B126A6441F08CCED00FDC098 /* test */,
+				B126A63E1F08C7AE00FDC098 /* src */,
 				B1A590611F0899BF00E78636 /* luaoc */,
 				B1A590601F0899BF00E78636 /* Products */,
+				B1A591801F089F8A00E78636 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -57,9 +66,16 @@
 		B1A590611F0899BF00E78636 /* luaoc */ = {
 			isa = PBXGroup;
 			children = (
-				B1A590621F0899BF00E78636 /* main.m */,
+				B126A6461F090B7F00FDC098 /* main.mm */,
 			);
 			path = luaoc;
+			sourceTree = "<group>";
+		};
+		B1A591801F089F8A00E78636 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,7 +87,7 @@
 			buildPhases = (
 				B1A5905B1F0899BF00E78636 /* Sources */,
 				B1A5905C1F0899BF00E78636 /* Frameworks */,
-				B1A5905D1F0899BF00E78636 /* CopyFiles */,
+				B126A6421F08C9C200FDC098 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -119,7 +135,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B1A590631F0899BF00E78636 /* main.m in Sources */,
+				B126A6471F090B7F00FDC098 /* main.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,14 +234,56 @@
 		B1A590671F0899BF00E78636 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/";
+				HEADER_SEARCH_PATHS = "\"/usr/local/Cellar/luajit/2.1.0-beta3/include/luajit-2.1\"";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/usr/local/Cellar/luajit/2.1.0-beta3/lib",
+				);
+				OTHER_CFLAGS = (
+					"-pagezero_size",
+					10000,
+					"-image_base",
+					100000000,
+					"-lluajit-5.1",
+				);
+				OTHER_LDFLAGS = (
+					"-pagezero_size",
+					10000,
+					"-image_base",
+					100000000,
+					"-lluajit-5.1",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SYMROOT = "$(PROJECT_DIR)/bin";
 			};
 			name = Debug;
 		};
 		B1A590681F0899BF00E78636 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)";
+				HEADER_SEARCH_PATHS = "\"/usr/local/Cellar/luajit/2.1.0-beta3/include/luajit-2.1\"";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/usr/local/Cellar/luajit/2.1.0-beta3/lib",
+				);
+				OTHER_CFLAGS = (
+					"-pagezero_size",
+					10000,
+					"-image_base",
+					100000000,
+					"-lluajit-5.1",
+				);
+				OTHER_LDFLAGS = (
+					"-pagezero_size",
+					10000,
+					"-image_base",
+					100000000,
+					"-lluajit-5.1",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SYMROOT = "$(PROJECT_DIR)/bin";
 			};
 			name = Release;
 		};
@@ -248,6 +306,7 @@
 				B1A590681F0899BF00E78636 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

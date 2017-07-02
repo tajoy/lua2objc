@@ -1,0 +1,26 @@
+{
+	"build_systems":
+	[
+		{
+			"name": "LuaJIT",
+			"shell_cmd": "rm -rf bin/src && rm -rf bin/test && cp -Rf src bin/src && cp -Rf test bin/test && ./bin/luaoc",
+			"working_dir": "${project_path:${folder}}"
+		}
+	],
+	"folders":
+	[
+		{
+			"path": "."
+		},
+		{
+			"path": "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/objc"
+		},
+		{
+			"path": "/Users/tajoy/projects/JSPatch"
+		}
+	],
+	"settings":
+	{
+		"tab_size": 4
+	}
+}
