@@ -1,2 +1,2 @@
--- TODO: write test for luaoc.api.ivar
+-- TODO: write test for objc.api.ivar
 

@@ -1,2 +1,2 @@
--- TODO: write test for luaoc.api.property
+-- TODO: write test for objc.api.property
 

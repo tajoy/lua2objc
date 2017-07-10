@@ -1,21 +1,116 @@
 import('api._header')
 
--- TODO: implement api bridge for this below
+-- TODO: test api bridge for this below
 
 local ffi = require('ffi')
+
+local _Method = {}
+local Method = {}
+
 ffi.cdef[[
 SEL method_getName(Method m);
-IMP method_getImplementation(Method m);
-const char *method_getTypeEncoding(Method m);
-unsigned int method_getNumberOfArguments(Method m);
-char *method_copyReturnType(Method m);
-char *method_copyArgumentType(Method m, unsigned int index);
-void method_getReturnType(Method m, char *dst, size_t dst_len);
-void method_getArgumentType(Method m, unsigned int index, 
-                                        char *dst, size_t dst_len);
-struct objc_method_description *method_getDescription(Method m);
-IMP method_setImplementation(Method m, IMP imp);
-void method_exchangeImplementations(Method m1, Method m2);
-unsigned int method_getSizeOfArguments(Method m);
-unsigned method_getArgumentInfo(struct objc_method *m, int arg, const char **type, int *offset);
 ]]
+function _Method:getName()
+	return ffi.C.method_getName(self)
+end
+
+function _Method:__tostring(other)
+	return 'Method<' .. tostring(self:getName()) .. '>'
+end
+function _Method:__concat(other)
+	return tostring(self) .. tostring(other)
+end
+
+ffi.cdef[[
+IMP method_getImplementation(Method m);
+]]
+function _Method:getImplementation()
+	return ffi.C.method_getImplementation(self)
+end
+
+ffi.cdef[[
+const char *method_getTypeEncoding(Method m);
+]]
+function _Method:getTypeEncoding()
+	return ffi.string(ffi.C.method_getTypeEncoding(self))
+end
+
+ffi.cdef[[
+unsigned int method_getNumberOfArguments(Method m);
+]]
+function _Method:getNumberOfArguments()
+	return ffi.C.method_getNumberOfArguments(self)
+end
+
+-- API-RENAME : method_copyReturnType class:getReturnType
+ffi.cdef[[
+char *method_copyReturnType(Method m);
+]]
+function _Method:getReturnType()
+	return ffi.string(ffi.gc(ffi.C.method_copyReturnType(self), ffi.C.free))
+end
+
+-- API-RENAME : method_copyArgumentType class:getArgumentType
+ffi.cdef[[
+char *method_copyArgumentType(Method m, unsigned int index);
+]]
+function _Method:getArgumentType(index)
+	index = checkNumberArg(index)
+	local ret = ffi.C.method_copyArgumentType(self, index)
+	if ret == nil then
+		return nil
+	end
+	return ffi.string(ffi.gc(ret, ffi.C.free))
+end
+
+-- API-IGNORE : method_getReturnType
+-- the rename reason is duplicate with method:getReturnType
+-- API-IGNORE : method_getArgumentType
+-- the rename reason is duplicate with method:getArgumentType
+-- ffi.cdef[[
+-- void method_getReturnType(Method m, char *dst, size_t dst_len);
+-- void method_getArgumentType(Method m, unsigned int index, char *dst, size_t dst_len);
+-- ]]
+
+ffi.cdef[[
+struct objc_method_description *method_getDescription(Method m);
+]]
+function _Method:getDescription()
+	return ffi.C.method_getDescription(self)
+end
+
+ffi.cdef[[
+IMP method_setImplementation(Method m, IMP imp);
+]]
+function _Method:setImplementation(imp)
+	imp = checkArg('IMP', imp)
+	return ffi.C.method_setImplementation(self, imp)
+end
+
+ffi.cdef[[
+void method_exchangeImplementations(Method m1, Method m2);
+]]
+function _Method:exchangeImplementations(other)
+	other = checkArg('Method', other)
+	ffi.C.method_exchangeImplementations(self, other)
+end
+
+ffi.cdef[[
+unsigned int method_getSizeOfArguments(Method m);
+]]
+function _Method:getSizeOfArguments()
+	return ffi.C.method_getSizeOfArguments(self)
+end
+
+ffi.cdef[[
+unsigned method_getArgumentInfo(Method m, int arg, const char **type, int *offset);
+]]
+function _Method:getArgumentInfo()
+	local p_type = ffi.new('const char *[1]')
+	local p_offset = ffi.new('int[1]')
+	ffi.C.method_getArgumentInfo(self, arg, p_type, p_offset)
+	return ffi.string(p_type[0]), tonumber(p_offset[0])
+end
+
+return exportWithMetaTable(Method, _Method, 'Method')
+

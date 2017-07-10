@@ -14,7 +14,7 @@ end
 _M_ENV.SELF = SELF
 
 setfenv(0, _M_ENV) -- for use SELF
-local private = require(SELF .. '._private')
+local private = require(SELF .. '._Private')
 local import = private.import
 -- private common functions
 for k,v in pairs(private) do
@@ -23,7 +23,7 @@ end
 
 setfenv(0, _M_ENV)
 _M.api = import('api.init')
-_M.class = import('_class')
+_M.Class = import('_Class')
 setfenv(0, _orig_G)
 
 return _M

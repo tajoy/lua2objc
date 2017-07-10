@@ -4,8 +4,6 @@ import('api._header')
 
 local ffi = require('ffi')
 ffi.cdef[[
-Protocol *objc_getProtocol(const char *name);
-Protocol **objc_copyProtocolList(unsigned int *outCount);
 BOOL protocol_conformsToProtocol(Protocol *proto, Protocol *other);
 BOOL protocol_isEqual(Protocol *proto, Protocol *other);
 const char *protocol_getName(Protocol *p);
@@ -15,12 +13,9 @@ objc_property_t protocol_getProperty(Protocol *proto, const char *name, BOOL isR
 objc_property_t *protocol_copyPropertyList(Protocol *proto, unsigned int *outCount);
 objc_property_t *protocol_copyPropertyList2(Protocol *proto, unsigned int *outCount, BOOL isRequiredProperty, BOOL isInstanceProperty);
 Protocol **protocol_copyProtocolList(Protocol *proto, unsigned int *outCount);
-Protocol *objc_allocateProtocol(const char *name);
-void objc_registerProtocol(Protocol *proto);
 void protocol_addMethodDescription(Protocol *proto, SEL name, const char *types, BOOL isRequiredMethod, BOOL isInstanceMethod);
 void protocol_addProtocol(Protocol *proto, Protocol *addition);
 void protocol_addProperty(Protocol *proto, const char *name, const objc_property_attribute_t *attributes, unsigned int attributeCount, BOOL isRequiredProperty, BOOL isInstanceProperty);
-
 ]]
 
 

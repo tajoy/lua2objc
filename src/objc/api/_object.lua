@@ -5,7 +5,7 @@ local object = {}
 local _object = {}
 
 
--- TODO: implement api bridge for this below
+-- TODO: test api bridge for this below
 
 ffi.cdef[[
 id object_copy(id obj, size_t size);
@@ -102,9 +102,20 @@ function _object:getInstanceVariable(name, outValue)
 	return ffi.C.object_getInstanceVariable()
 end
 
-ffi.metatype('struct objc_object', _object)
+ffi.cdef[[
+const char *object_getClassName(id obj);
+]]
+function _object:getClassName()
+	return ffi.string(ffi.C.object_getClassName(self))
+end
 
--- TODO: implement api bridge for this below
+ffi.cdef[[
+void *object_getIndexedIvars(id obj);
+]]
+function _object:getIndexedIvars()
+	return ffi.C.object_getIndexedIvars(self)
+end
+
 ffi.cdef[[
 id object_copyFromZone(id anObject, size_t nBytes, void *z);
 ]]
@@ -134,4 +145,4 @@ function object.reallocFromZone(anObject, nBytes, z)
 	return ffi.C.object_reallocFromZone(anObject, nBytes, z)
 end
 
-return exportMethodTable('id', object, _object)
+return exportWithMetaTable(object, _object, 'id')

@@ -1,2 +1,2 @@
--- TODO: write test for luaoc.api.sel
+-- TODO: write test for objc.api.sel
 

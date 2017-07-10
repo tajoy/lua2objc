@@ -260,6 +260,10 @@ int resource_lua_loader(lua_State *L)
     return 1;
 }
 
+@interface MyClass : NSObject<NSCopying>
+
+@end
+
 int main(int argc, char * args[])
 {
     @autoreleasepool {

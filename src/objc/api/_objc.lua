@@ -57,13 +57,13 @@ Class *objc_copyClassList(unsigned int *outCount);
 function objc.getClassList()
 	local outCount = ffi.new("unsigned int[1]")
 	local classes = ffi.gc(ffi.C.objc_copyClassList(outCount), ffi.C.free)
+	local count = tonumber(outCount[0])
 	local ret = {}
-	for i = 0, outCount[1] - 1 do
+	for i = 0, count - 1 do
 		ret[i+1] = classes[i]
 	end
 	return ret
 end
-
 
 -- API-RENAME : objc_copyImageNames objc.getImageNames
 ffi.cdef[[
@@ -72,8 +72,9 @@ const char **objc_copyImageNames(unsigned int *outCount);
 function objc.getImageNames()
 	local outCount = ffi.new("unsigned int[1]")
 	local names = ffi.gc(ffi.C.objc_copyImageNames(outCount), ffi.C.free)
+	local count = tonumber(outCount[0])
 	local ret = {}
-	for i = 0, outCount[1] - 1 do
+	for i = 0, count - 1 do
 		ret[i+1] = ffi.string(names[i])
 	end
 	return ret
@@ -87,8 +88,9 @@ function objc.getImageNamesForImage(image)
 	image = checkStringArg(image)
 	local outCount = ffi.new("unsigned int[1]")
 	local names = ffi.gc(ffi.C.objc_copyClassNamesForImage(image, outCount), ffi.C.free)
+	local count = tonumber(outCount[0])
 	local ret = {}
-	for i = 0, outCount[1] - 1 do
+	for i = 0, count - 1 do
 		ret[i+1] = ffi.string(names[i])
 	end
 	return ret
@@ -110,7 +112,7 @@ function objc.duplicateClass(original, name, extraBytes)
 	original = checkArg('Class', original)
 	name = checkStringArg(name)
 	extraBytes = checkNumberArg(extraBytes)
-	ffi.C.objc_duplicateClass(original)
+	return ffi.C.objc_duplicateClass(original, name, extraBytes)
 end
 
 ffi.cdef[[
@@ -124,11 +126,90 @@ end
 ffi.cdef[[
 Class objc_allocateClassPair(Class superclass, const char *name, size_t extraBytes);
 ]]
-function objc.allocateClassPair(cls)
-	cls = checkArg('Class', cls)
-	ffi.C.objc_allocateClassPair(cls)
+function objc.allocateClassPair(superclass, name, extraBytes)
+	superclass = checkArg('Class', superclass)
+	name = checkStringArg(name)
+	extraBytes = checkNumberArg(extraBytes)
+	return ffi.C.objc_allocateClassPair(superclass, name, extraBytes)
 end
 
+-- API-IGNORE : objc_constructInstance
+-- API-IGNORE : objc_destructInstance
+-- the rename reason is duplicate with class:createInstance
+-- ffi.cdef[[
+-- id objc_constructInstance(Class cls, void *bytes);
+-- void *objc_destructInstance(id obj);
+-- ]]
+
+ffi.cdef[[
+Class objc_getClass(const char *name);
+]]
+function objc.getClass(name)
+	name = checkStringArg(name)
+	return ffi.C.objc_getClass(name)
+end
+
+ffi.cdef[[
+Class objc_getMetaClass(const char *name);
+]]
+function objc.getMetaClass(name)
+	name = checkStringArg(name)
+	return ffi.C.objc_getMetaClass(name)
+end
+
+ffi.cdef[[
+Class objc_lookUpClass(const char *name);
+]]
+function objc.lookUpClass(name)
+	name = checkStringArg(name)
+	return ffi.C.objc_lookUpClass(name)
+end
+
+ffi.cdef[[
+Class objc_getRequiredClass(const char *name);
+]]
+function objc.getRequiredClass(name)
+	name = checkStringArg(name)
+	return ffi.C.objc_getRequiredClass(name)
+end
+
+ffi.cdef[[
+Protocol *objc_getProtocol(const char *name);
+]]
+function objc.getProtocol(name)
+	name = checkStringArg(name)
+	return ffi.C.objc_getProtocol(name)
+end
+
+-- API-RENAME : objc_copyProtocolList objc.getProtocolList
+ffi.cdef[[
+Protocol **objc_copyProtocolList(unsigned int *outCount);
+]]
+function objc.getProtocolList()
+	local outCount = ffi.new("unsigned int[1]")
+	local protocols = ffi.gc(ffi.C.objc_copyProtocolList(outCount), ffi.C.free)
+	local count = tonumber(outCount[0])
+	local ret = {}
+	for i = 0, count - 1 do
+		ret[i+1] = protocols[i]
+	end
+	return ret
+end
+
+ffi.cdef[[
+Protocol *objc_allocateProtocol(const char *name);
+]]
+function objc.allocateProtocol(name)
+	name = checkStringArg(name)
+	return ffi.C.objc_allocateProtocol(name)
+end
+ffi.cdef[[
+void objc_registerProtocol(Protocol *proto);
+]]
+function objc.registerProtocol(proto)
+	proto = checkArg('Protocol *', proto)
+	ffi.C.objc_registerProtocol(proto)
+end
 
 -- TODO: implement api bridge for this below
 ffi.cdef[[
@@ -144,5 +225,7 @@ void objc_removeAssociatedObjects(id object);
 ]]
 
 
+
+return objc
 
 
