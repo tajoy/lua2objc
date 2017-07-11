@@ -1,7 +1,5 @@
 import('api._header')
 
--- TODO: test api bridge for this below
-
 local ffi = require('ffi')
 
 local SEL = {}
@@ -58,8 +56,9 @@ function SEL.registerName(str)
 	return ffi.C.sel_registerName(str)
 end
 
-function _SEL.__call(name)
-	return SEL.registerName(name)
-end
-
+setmetatable(SEL, {
+	__call = function(self, name)
+		return SEL.registerName(name)
+	end
+})
 return exportWithMetaTable(SEL, _SEL, 'SEL')

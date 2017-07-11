@@ -1,7 +1,5 @@
 import('api._header')
 
--- TODO: test api bridge for this below
-
 local ffi = require('ffi')
 
 local _Method = {}
@@ -15,7 +13,12 @@ function _Method:getName()
 end
 
 function _Method:__tostring(other)
-	return 'Method<' .. tostring(self:getName()) .. '>'
+	local sel = self:getName()
+	local name = 'unknown'
+	if sel then
+		name = sel:getName()
+	end
+	return 'Method<' .. name .. '>'
 end
 function _Method:__concat(other)
 	return tostring(self) .. tostring(other)
@@ -76,7 +79,14 @@ ffi.cdef[[
 struct objc_method_description *method_getDescription(Method m);
 ]]
 function _Method:getDescription()
-	return ffi.C.method_getDescription(self)
+	local desc = ffi.C.method_getDescription(self)
+	if desc == nil then
+		return nil
+	end
+	return {
+		name = desc.name,
+		types = ffi.string(desc.types),
+	}
 end
 
 ffi.cdef[[
@@ -95,22 +105,27 @@ function _Method:exchangeImplementations(other)
 	ffi.C.method_exchangeImplementations(self, other)
 end
 
-ffi.cdef[[
-unsigned int method_getSizeOfArguments(Method m);
-]]
-function _Method:getSizeOfArguments()
-	return ffi.C.method_getSizeOfArguments(self)
-end
+-- API-IGNORE: method_getSizeOfArguments
+-- dlsym(RTLD_DEFAULT, method_getSizeOfArguments): symbol not found
+-- ffi.cdef[[
+-- unsigned int method_getSizeOfArguments(Method m);
+-- ]]
+-- function _Method:getSizeOfArguments()
+-- 	return ffi.C.method_getSizeOfArguments(self)
+-- end
 
-ffi.cdef[[
-unsigned method_getArgumentInfo(Method m, int arg, const char **type, int *offset);
-]]
-function _Method:getArgumentInfo()
-	local p_type = ffi.new('const char *[1]')
-	local p_offset = ffi.new('int[1]')
-	ffi.C.method_getArgumentInfo(self, arg, p_type, p_offset)
-	return ffi.string(p_type[0]), tonumber(p_offset[0])
-end
+-- API-IGNORE: method_getArgumentInfo
+-- dlsym(RTLD_DEFAULT, method_getArgumentInfo): symbol not found
+-- ffi.cdef[[
+-- unsigned method_getArgumentInfo(Method m, int arg, const char **type, int *offset);
+-- ]]
+-- function _Method:getArgumentInfo(arg)
+-- 	arg = checkNumberArg(arg)
+-- 	local p_type = ffi.new('const char *[1]')
+-- 	local p_offset = ffi.new('int[1]')
+-- 	local ret = ffi.C.method_getArgumentInfo(self, arg, p_type, p_offset)
+-- 	return ret, ffi.string(p_type[0]), tonumber(p_offset[0])
+-- end
 
 return exportWithMetaTable(Method, _Method, 'Method')
 

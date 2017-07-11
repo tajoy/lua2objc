@@ -59,7 +59,7 @@ function _M.checkArrayArg(ctype, arg)
 		return arg
 	end
 	for i, v in ipairs(arg) do
-		if not ffi.istype(ctype, v) then
+		if type(v) ~= ctype and not ffi.istype(ctype, v) then
 			error('arg[' .. i .. '] expected ' .. ctype .. ', but it is ' .. type(arg))
 			return arg
 		end

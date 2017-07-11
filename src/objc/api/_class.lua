@@ -4,8 +4,6 @@ local ffi = require('ffi')
 local _Class = {}
 local Class = {}
 
--- TODO: test api bridge for this below
-
 ffi.cdef[[
 const char *class_getImageName(Class cls);
 ]]
@@ -235,7 +233,7 @@ end
 ffi.cdef[[
 IMP class_replaceMethod(Class cls, SEL name, IMP imp, const char *types);
 ]]
-function _Class:replaceMethod()
+function _Class:replaceMethod(name, imp, types)
 	name = checkArg('SEL', name)
 	imp = checkArg('IMP', imp)
 	types = checkStringArg(types)
@@ -245,7 +243,7 @@ end
 ffi.cdef[[
 BOOL class_addIvar(Class cls, const char *name, size_t size, uint8_t alignment, const char *types);
 ]]
-function _Class:addIvar()
+function _Class:addIvar(name, size, alignment, types)
 	name = checkStringArg(name)
 	size = checkNumberArg(size)
 	alignment = checkNumberArg(alignment)
@@ -256,7 +254,7 @@ end
 ffi.cdef[[
 BOOL class_addProtocol(Class cls, Protocol *protocol);
 ]]
-function _Class:addProtocol()
+function _Class:addProtocol(protocol)
 	protocol = checkArg('Protocol *', protocol)
 	return toboolean(ffi.C.class_addProtocol(self, protocol))
 end
@@ -266,11 +264,15 @@ BOOL class_addProperty(Class cls, const char *name, const objc_property_attribut
 ]]
 function _Class:addProperty(name, attributes)
 	name = checkStringArg(name)
-	attributes = checkArrayArg('objc_property_attribute_t', attributes)
+	attributes = checkArrayArg('table', attributes)
 	if #attributes <= 0 then
 		return ffi.C.class_addProperty(self, name, nil, 0)
 	end
 	local attrs = ffi.new('objc_property_attribute_t[?]', #attributes)
+	for i, attr in ipairs(attributes) do
+		attrs[i].name = attr.name
+		attrs[i].value = attr.value
+	end
 	return toboolean(ffi.C.class_addProperty(self, name, attrs, #attributes))
 end
 
@@ -279,28 +281,46 @@ void class_replaceProperty(Class cls, const char *name, const objc_property_attr
 ]]
 function _Class:replaceProperty(name, attributes)
 	name = checkStringArg(name)
-	attributes = checkArrayArg('objc_property_attribute_t', attributes)
+	attributes = checkArrayArg('table', attributes)
 	if #attributes <= 0 then
-		return ffi.C.class_addProperty(self, name, nil, 0)
+		ffi.C.class_replaceProperty(self, name, nil, 0)
 	end
 	local attrs = ffi.new('objc_property_attribute_t[?]', #attributes)
-	return ffi.C.class_replaceProperty(self, name, attrs, #attributes)
+	for i, attr in ipairs(attributes) do
+		attrs[i - 1].name = attr.name
+		attrs[i - 1].value = attr.value
+	end
+	ffi.C.class_replaceProperty(self, name, attrs, #attributes)
 end
 
 ffi.cdef[[
 void class_setIvarLayout(Class cls, const uint8_t *layout);
 ]]
 function _Class:setIvarLayout(layout)
-	layout = checkNumberArg(layout)
-	return ffi.C.class_setIvarLayout(self, layout)
+	layout = checkArrayArg('number', layout)
+	if #layout <= 0 then
+		ffi.C.class_setIvarLayout(self, nil)
+	end
+	local c_layout = ffi.new('uint8_t[?]', #layout)
+	for i, v in ipairs(layout) do
+		c_layout[i - 1] = (v % 0xFF)
+	end
+	ffi.C.class_setIvarLayout(self, c_layout)
 end
 
 ffi.cdef[[
 void class_setWeakIvarLayout(Class cls, const uint8_t *layout);
 ]]
 function _Class:setWeakIvarLayout(layout)
-	layout = checkNumberArg(layout)
-	return ffi.C.class_setWeakIvarLayout(self, layout)
+	layout = checkArrayArg('number', layout)
+	if #layout <= 0 then
+		ffi.C.class_setWeakIvarLayout(self, nil)
+	end
+	local c_layout = ffi.new('uint8_t[?]', #layout)
+	for i, v in ipairs(layout) do
+		c_layout[i - 1] = (v % 0xFF)
+	end
+	ffi.C.class_setWeakIvarLayout(self, c_layout)
 end
 
 ffi.cdef[[
@@ -319,21 +339,25 @@ end
 -- void class_removeMethods(Class, struct objc_method_list *);
 -- ]]
 
-ffi.cdef[[
-IMP class_lookupMethod(Class cls, SEL sel);
-]]
-function _Class:lookupMethod(sel)
-	sel = checkArg('SEL', sel)
-	return ffi.C.class_lookupMethod(self, sel)
-end
+-- API-IGNORE : class_lookupMethod
+-- use class_getMethodImplementation instead
+-- ffi.cdef[[
+-- IMP class_lookupMethod(Class cls, SEL sel);
+-- ]]
+-- function _Class:lookupMethod(sel)
+-- 	sel = checkArg('SEL', sel)
+-- 	return ffi.C.class_lookupMethod(self, sel)
+-- end
 
-ffi.cdef[[
-BOOL class_respondsToMethod(Class cls, SEL sel);
-]]
-function _Class:respondsToMethod(sel)
-	sel = checkArg('SEL', sel)
-	return toboolean(ffi.C.class_respondsToMethod(self, sel))
-end
+-- API-IGNORE : class_respondsToMethod
+-- use class_respondsToSelector instead
+-- ffi.cdef[[
+-- BOOL class_respondsToMethod(Class cls, SEL sel);
+-- ]]
+-- function _Class:respondsToMethod(sel)
+-- 	sel = checkArg('SEL', sel)
+-- 	return toboolean(ffi.C.class_respondsToMethod(self, sel))
+-- end
 
 ffi.cdef[[
 id class_createInstance(Class cls, size_t extraBytes);

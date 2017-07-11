@@ -1,4 +1,4 @@
--- TODO: write test for objc.api.class
+-- test for objc.api.class
 
 local ffi = require('ffi')
 
@@ -10,7 +10,7 @@ local function newClass(name, adapter)
 	local cls = objc.getClass('NSObject')
 	local pair = objc.allocateClassPair(cls, name, 0)
 	if adapter and type(adapter) == 'function' then
-		adapter(cls)
+		adapter(pair)
 	end
 	objc.registerClassPair(pair)
 	return objc.getClass(name)
@@ -20,6 +20,9 @@ local function SEL(str)
 end
 local function Protocol(name)
 	return ffi.C.objc_getProtocol(name)
+end
+local function log2(x)
+   return math.log(x)/math.log(2)
 end
 
 assert(ffi.istype('SEL', SEL('init')))
@@ -168,7 +171,7 @@ function test_Class_getProperty()
 	assert(ffi.istype('objc_property_t', property))
 end
 function test_Class_getPropertyList()
-	-- TODO: test for function _Class:getPropertyList()
+	-- test for function _Class:getPropertyList()
 	local cls = getClass('NSString')
 	assert(cls)
 	local list = cls:getPropertyList()
@@ -176,49 +179,95 @@ function test_Class_getPropertyList()
 	assert(ffi.istype('objc_property_t', list[1]))
 end
 function test_Class_getIvarLayout()
-	-- TODO: test for function _Class:getIvarLayout()
-	local cls = getClass('NSConcreteData')
+	-- test for function _Class:getIvarLayout()
+	local cls = getClass('NSString')
 	assert(cls)
-	print(cls:getIvarLayout())
+	assert_eq(cls:getIvarLayout(), nil)
 end
 function test_Class_getWeakIvarLayout()
-	-- TODO: test for function _Class:getWeakIvarLayout()
+	-- test for function _Class:getWeakIvarLayout()
+	local cls = getClass('NSString')
+	assert(cls)
+	assert_eq(cls:getWeakIvarLayout(), nil)
 end
 function test_Class_addMethod()
-	-- TODO: test for function _Class:addMethod(name, imp, types)
+	-- test for function _Class:addMethod(name, imp, types)
+	local new_cls = newClass("Test_addMethod", function(cls)
+		cls:addMethod(SEL'test_addMethod', ffi.cast('IMP', ffi.C._objc_msgForward), 'void')
+	end)
+	assert(new_cls)
 end
 function test_Class_replaceMethod()
-	-- TODO: test for function _Class:replaceMethod()
+	-- test for function _Class:replaceMethod(name, imp, types)
+	local cls = getClass('NSString')
+	assert(cls)
+	local old_imp = cls:replaceMethod(SEL'string', ffi.cast('IMP', ffi.C._objc_msgForward), 'id')
+	assert(old_imp)
+	assert(ffi.istype('IMP', old_imp))
 end
 function test_Class_addIvar()
-	-- TODO: test for function _Class:addIvar()
+	-- test for function _Class:addIvar()
+	local new_cls = newClass("Test_addIvar", function(cls)
+		cls:addIvar('test_addIvar', ffi.sizeof('id'), log2(ffi.sizeof('id')), 'id')
+	end)
+	assert(new_cls)
 end
 function test_Class_addProtocol()
-	-- TODO: test for function _Class:addProtocol()
+	-- test for function _Class:addProtocol()
+	local new_cls = newClass("Test_addProtocol", function(cls)
+		cls:addProtocol(Protocol'test_addProtocol')
+	end)
+	assert(new_cls)
 end
 function test_Class_addProperty()
-	-- TODO: test for function _Class:addProperty(name, attributes)
+	-- test for function _Class:addProperty(name, attributes)
+	local new_cls = newClass("Test_addProperty", function(cls)
+		assert(cls:addProperty('test_addProperty', {
+				{ name = 'noatomic', value = nil },
+				{ name = 'weak', value = nil },
+			}))
+	end)
+	assert(new_cls)
 end
 function test_Class_replaceProperty()
-	-- TODO: test for function _Class:replaceProperty(name, attributes)
+	-- test for function _Class:replaceProperty(name, attributes)
+	local new_cls = newClass("Test_replaceProperty", function(cls)
+		cls:replaceProperty('test_replaceProperty', {
+				{ name = 'noatomic', value = nil },
+				{ name = 'weak', value = nil },
+			})
+	end)
+	assert(new_cls)
 end
 function test_Class_setIvarLayout()
-	-- TODO: test for function _Class:setIvarLayout(layout)
+	-- test for function _Class:setIvarLayout(layout)
+	local new_cls = newClass("Test_setIvarLayout", function(cls)
+		cls:addIvar('test_setIvarLayout', ffi.sizeof('id'), log2(ffi.sizeof('id')), 'id')
+		cls:setIvarLayout({0x01, 0x12})
+	end)
+	assert(new_cls)
 end
 function test_Class_setWeakIvarLayout()
-	-- TODO: test for function _Class:setWeakIvarLayout(layout)
+	-- test for function _Class:setWeakIvarLayout(layout)
+	local new_cls = newClass("Test_setWeakIvarLayout", function(cls)
+		cls:addIvar('test_setWeakIvarLayout', ffi.sizeof('id'), log2(ffi.sizeof('id')), 'id')
+		cls:setWeakIvarLayout({0x11, 0x10})
+	end)
+	assert(new_cls)
 end
 function test_Class_createInstanceFromZone()
-	-- TODO: test for function _Class:createInstanceFromZone(idxIvars, z)
-end
-function test_Class_lookupMethod()
-	-- TODO: test for function _Class:lookupMethod(sel)
-end
-function test_Class_respondsToMethod()
-	-- TODO: test for function _Class:respondsToMethod(sel)
+	-- test for function _Class:createInstanceFromZone(idxIvars, z)
+	local cls = getClass('NSString')
+	assert(cls)
+	local instance = cls:createInstanceFromZone(0, ffi.cast('void*', nil))
+	assert(instance)
 end
 function test_Class_createInstance()
-	-- TODO: test for function _Class:createInstance(extraBytes)
+	-- test for function _Class:createInstance(extraBytes)
+	local cls = getClass('NSString')
+	assert(cls)
+	assert(cls:createInstance())
+	assert(cls:createInstance(10))
 end
 local all_test_func = {
 	test_Class_getImageName,
@@ -253,8 +302,6 @@ local all_test_func = {
 	test_Class_setIvarLayout,
 	test_Class_setWeakIvarLayout,
 	test_Class_createInstanceFromZone,
-	test_Class_lookupMethod,
-	test_Class_respondsToMethod,
 	test_Class_createInstance,
 }
 
