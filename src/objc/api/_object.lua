@@ -11,7 +11,7 @@ ffi.cdef[[
 id object_copy(id obj, size_t size);
 ]]
 function _object:copy(size)
-	size = checkArg('size_t', size)
+	size = checkNumberArg(size)
 	return ffi.C.object_copy(self, size)
 end
 
@@ -34,7 +34,7 @@ Class object_setClass(id obj, Class cls);
 ]]
 function _object:setClass(cls)
 	cls = checkArg('Class', cls)
-	return ffi.C.object_setClass(self)
+	return ffi.C.object_setClass(self, cls)
 end
 
 ffi.cdef[[
@@ -66,7 +66,7 @@ end
 ffi.cdef[[
 void object_setIvarWithStrongDefault(id obj, Ivar ivar, id value);
 ]]
-function _object:setIvarWithStrongDefault()
+function _object:setIvarWithStrongDefault(ivar, value)
 	ivar = checkArg('Ivar', ivar)
 	value = checkArg('id', value)
 	return ffi.C.object_setIvarWithStrongDefault(self, ivar, value)
@@ -98,8 +98,8 @@ Ivar object_getInstanceVariable(id obj, const char *name, void **outValue);
 ]]
 function _object:getInstanceVariable(name, outValue)
 	name = checkStringArg(name)
-	value = checkArg('void**', value)
-	return ffi.C.object_getInstanceVariable()
+	value = checkArg('void**', outValue)
+	return ffi.C.object_getInstanceVariable(self, name, outValue)
 end
 
 ffi.cdef[[
@@ -121,28 +121,32 @@ id object_copyFromZone(id anObject, size_t nBytes, void *z);
 ]]
 function object.copyFromZone(anObject, nBytes, z)
 	anObject = checkArg('id', anObject)
-	nBytes = checkArg('size_t', nBytes)
+	nBytes = checkNumberArg(nBytes)
 	z = checkArg('void*', z)
 	return ffi.C.object_copyFromZone(anObject, nBytes, z)
 end
 
-ffi.cdef[[
-id object_realloc(id anObject, size_t nBytes);
-]]
-function object.realloc(anObject, nBytes)
-	anObject = checkArg('id', anObject)
-	nBytes = checkArg('size_t', nBytes)
-	return ffi.C.object_realloc(anObject, nBytes)
-end
+-- API-IGNORE: object_realloc
+-- nBytes = checkNumberArg(nBytes)dlsym(RTLD_DEFAULT, object_realloc): symbol not found
+-- ffi.cdef[[
+-- id object_realloc(id anObject, size_t nBytes);
+-- ]]
+-- function object.realloc(anObject, nBytes)
+-- 	anObject = checkArg('id', anObject)
+-- 	nBytes = checkNumberArg(nBytes)
+-- 	return ffi.C.object_realloc(anObject, nBytes)
+-- end
 
-ffi.cdef[[
-id object_reallocFromZone(id anObject, size_t nBytes, void *z);
-]]
-function object.reallocFromZone(anObject, nBytes, z)
-	anObject = checkArg('id', anObject)
-	nBytes = checkArg('size_t', nBytes)
-	z = checkArg('void*', z)
-	return ffi.C.object_reallocFromZone(anObject, nBytes, z)
-end
+-- API-IGNORE: object_reallocFromZone
+-- dlsym(RTLD_DEFAULT, object_reallocFromZone): symbol not found
+-- ffi.cdef[[
+-- id object_reallocFromZone(id anObject, size_t nBytes, void *z);
+-- ]]
+-- function object.reallocFromZone(anObject, nBytes, z)
+-- 	anObject = checkArg('id', anObject)
+-- 	nBytes = checkNumberArg(nBytes)
+-- 	z = checkArg('void*', z)
+-- 	return ffi.C.object_reallocFromZone(anObject, nBytes, z)
+-- end
 
 return exportWithMetaTable(object, _object, 'id')

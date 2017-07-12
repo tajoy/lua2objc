@@ -7,55 +7,65 @@ local function getClass(name)
 	return objc.getClass(name)
 end
 
-local object = require('objc').api.object
+local Object = require('objc').api.Object
+local obj = ffi.cast('id', getClass'NSObject')
 
 local function test__object_copy()
-	-- TODO: test for function _object:copy(size)
+	-- test for function _object:copy(size)
+	assert(obj:copy(0))
 end
 local function test__object_dispose()
-	-- TODO: test for function _object:dispose()
+	-- test for function _object:dispose()
+	assert(obj:copy(0):dispose())
 end
 local function test__object_getClass()
-	-- TODO: test for function _object:getClass()
+	-- test for function _object:getClass()
+	assert(obj:getClass())
 end
 local function test__object_setClass()
-	-- TODO: test for function _object:setClass(cls)
+	-- test for function _object:setClass(cls)
+	assert(obj:setClass(getClass'NSObject'))
 end
 local function test__object_isClass()
-	-- TODO: test for function _object:isClass()
+	-- test for function _object:isClass()
+	assert(obj:isClass())
 end
 local function test__object_getIvar()
-	-- TODO: test for function _object:getIvar(ivar)
+	-- test for function _object:getIvar(ivar)
+	assert(obj:getIvar(getClass('NSObject'):getClassVariable('')))
 end
 local function test__object_setIvar()
-	-- TODO: test for function _object:setIvar(ivar, value)
+	-- test for function _object:setIvar(ivar, value)
+	local ivar = getClass('NSObject'):getClassVariable('')
+	obj:setIvar(ivar, obj:getIvar(ivar))
 end
 local function test__object_setIvarWithStrongDefault()
-	-- TODO: test for function _object:setIvarWithStrongDefault()
+	-- test for function _object:setIvarWithStrongDefault()
+	obj:setIvarWithStrongDefault(ffi.cast('Ivar', nil), ffi.cast('id', nil))
 end
 local function test__object_setInstanceVariable()
-	-- TODO: test for function _object:setInstanceVariable(name, value)
+	-- test for function _object:setInstanceVariable(name, value)
+	assert(obj:setInstanceVariable('', ffi.cast('void*', nil)))
 end
 local function test__object_setInstanceVariableWithStrongDefault()
-	-- TODO: test for function _object:setInstanceVariableWithStrongDefault(name, value)
+	-- test for function _object:setInstanceVariableWithStrongDefault(name, value)
+	assert(obj:setInstanceVariableWithStrongDefault('', ffi.cast('void*', nil)))
 end
 local function test__object_getInstanceVariable()
-	-- TODO: test for function _object:getInstanceVariable(name, outValue)
+	-- test for function _object:getInstanceVariable(name, outValue)
+	assert(obj:getInstanceVariable('', ffi.cast('void**', nil)))
 end
 local function test__object_getClassName()
-	-- TODO: test for function _object:getClassName()
+	-- test for function _object:getClassName()
+	assert(obj:getClassName())
 end
 local function test__object_getIndexedIvars()
-	-- TODO: test for function _object:getIndexedIvars()
+	-- test for function _object:getIndexedIvars()
+	assert(obj:getIndexedIvars())
 end
 local function test_object_copyFromZone()
-	-- TODO: test for function object.copyFromZone(anObject, nBytes, z)
-end
-local function test_object_realloc()
-	-- TODO: test for function object.realloc(anObject, nBytes)
-end
-local function test_object_reallocFromZone()
-	-- TODO: test for function object.reallocFromZone(anObject, nBytes, z)
+	-- test for function object.copyFromZone(anObject, nBytes, z)
+	Object.copyFromZone(obj, 0, ffi.cast('void*', nil))
 end
 
 local all_test_func =
@@ -74,8 +84,6 @@ local all_test_func =
 	test__object_getClassName,
 	test__object_getIndexedIvars,
 	test_object_copyFromZone,
-	test_object_realloc,
-	test_object_reallocFromZone,
 }
 
 for _, func in ipairs(all_test_func) do
