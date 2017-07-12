@@ -30,7 +30,7 @@
 		B126A63E1F08C7AE00FDC098 /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; path = src; sourceTree = "<group>"; };
 		B126A6441F08CCED00FDC098 /* test */ = {isa = PBXFileReference; lastKnownFileType = folder; path = test; sourceTree = "<group>"; };
 		B126A6461F090B7F00FDC098 /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = SOURCE_ROOT; };
-		B1A5905F1F0899BF00E78636 /* luaoc */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = luaoc; sourceTree = BUILT_PRODUCTS_DIR; };
+		B1A5905F1F0899BF00E78636 /* test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = test; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,7 +58,7 @@
 		B1A590601F0899BF00E78636 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B1A5905F1F0899BF00E78636 /* luaoc */,
+				B1A5905F1F0899BF00E78636 /* test */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -81,9 +81,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B1A5905E1F0899BF00E78636 /* luaoc */ = {
+		B1A5905E1F0899BF00E78636 /* test */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B1A590661F0899BF00E78636 /* Build configuration list for PBXNativeTarget "luaoc" */;
+			buildConfigurationList = B1A590661F0899BF00E78636 /* Build configuration list for PBXNativeTarget "test" */;
 			buildPhases = (
 				B1A5905B1F0899BF00E78636 /* Sources */,
 				B1A5905C1F0899BF00E78636 /* Frameworks */,
@@ -93,9 +93,9 @@
 			);
 			dependencies = (
 			);
-			name = luaoc;
+			name = test;
 			productName = luaoc;
-			productReference = B1A5905F1F0899BF00E78636 /* luaoc */;
+			productReference = B1A5905F1F0899BF00E78636 /* test */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -113,7 +113,7 @@
 					};
 				};
 			};
-			buildConfigurationList = B1A5905A1F0899BF00E78636 /* Build configuration list for PBXProject "luaoc" */;
+			buildConfigurationList = B1A5905A1F0899BF00E78636 /* Build configuration list for PBXProject "test" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -125,7 +125,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B1A5905E1F0899BF00E78636 /* luaoc */,
+				B1A5905E1F0899BF00E78636 /* test */,
 			);
 		};
 /* End PBXProject section */
@@ -290,7 +290,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B1A5905A1F0899BF00E78636 /* Build configuration list for PBXProject "luaoc" */ = {
+		B1A5905A1F0899BF00E78636 /* Build configuration list for PBXProject "test" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B1A590641F0899BF00E78636 /* Debug */,
@@ -299,7 +299,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B1A590661F0899BF00E78636 /* Build configuration list for PBXNativeTarget "luaoc" */ = {
+		B1A590661F0899BF00E78636 /* Build configuration list for PBXNativeTarget "test" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B1A590671F0899BF00E78636 /* Debug */,

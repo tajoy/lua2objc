@@ -1,0 +1,423 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"for",
+				"forp\tfor k,v in pairs()"
+			],
+			[
+				"check",
+				"checkNumberArg"
+			],
+			[
+				"fun",
+				"function\tfunction"
+			],
+			[
+				"fu",
+				"function\tfunction"
+			],
+			[
+				"fo",
+				"forp\tfor k,v in pairs()"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "sublimelinter",
+		"selected_items":
+		[
+			[
+				"sublimelinter",
+				"SublimeLinter: Enable Inline Tooltips"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"linter",
+				"SublimeLinter: Show All Errors"
+			],
+			[
+				"setlua",
+				"Set Syntax: Lua"
+			],
+			[
+				"setc",
+				"Set Syntax: C"
+			],
+			[
+				"bash",
+				"Set Syntax: Shell Script (Bash)"
+			]
+		],
+		"width": 593.0
+	},
+	"console":
+	{
+		"height": 415.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = 'df21e130d211cfc94d9b0905775a7c0f' + '1e3d39e33b79698005270310898eea76'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+	],
+	"file_history":
+	[
+		"/Users/tajoy/projects/lua2oc/lua2oc.sublime-workspace",
+		"/Users/tajoy/projects/lua2oc/src/objc/api/_class.lua",
+		"/Users/tajoy/projects/luaoc/src/objc/api/_objc.lua",
+		"/Users/tajoy/projects/luaoc/src/objc/api/_class.lua",
+		"/Users/tajoy/projects/luaoc/src/objc/api/_method.lua",
+		"/Users/tajoy/projects/luaoc/src/objc/api/_sel.lua",
+		"/Users/tajoy/projects/luaoc/src/objc/api/_object.lua",
+		"/Users/tajoy/projects/luaoc/src/objc/api/_category.lua",
+		"/Users/tajoy/projects/luaoc/src/objc/api/_imp.lua",
+		"/Users/tajoy/projects/luaoc/src/objc/api/_enum.lua",
+		"/Users/tajoy/projects/luaoc/src/objc/api/_protocol.lua",
+		"/Users/tajoy/projects/luaoc/src/objc/api/_property.lua",
+		"/Users/tajoy/projects/luaoc/src/objc/api/_ivar.lua",
+		"/Users/tajoy/Library/Application Support/Sublime Text 3/Packages/SublimeLinter/SublimeLinter.sublime-settings",
+		"/Users/tajoy/projects/luaoc/test/api/class.lua",
+		"/Users/tajoy/Library/Application Support/Sublime Text 3/Packages/User/SublimeLinter.sublime-settings",
+		"/Users/tajoy/projects/luaoc/src/objc/_Class.lua",
+		"/Users/tajoy/projects/luaoc/src/objc/_private.lua",
+		"/Users/tajoy/projects/luaoc/src/objc/_class.lua",
+		"/Users/tajoy/projects/luaoc/test/class.lua",
+		"/Users/tajoy/projects/luaoc/test/api/objc.lua",
+		"/Users/tajoy/projects/luaoc/test/api/instance.lua",
+		"/Users/tajoy/projects/luaoc/src/objc/api/_instance.lua",
+		"/Users/tajoy/projects/luaoc/bin/src/objc/api/_object.lua",
+		"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/objc/runtime.h",
+		"/Users/tajoy/projects/JSPatch/.gitignore",
+		"/Users/tajoy/projects/luaoc/src/objc/api/_header.lua",
+		"/Users/tajoy/.Trash/_library.lua",
+		"/Users/tajoy/.Trash/DerivedData/ModuleCache/Session.modulevalidation",
+		"/Users/tajoy/.Trash/DerivedData/luaoc/Build/Intermediates/luaoc.build/Debug/luaoc.build/Objects-normal/x86_64/main.d",
+		"/Users/tajoy/.Trash/DerivedData/luaoc/Build/Intermediates/luaoc.build/Debug/luaoc.build/Objects-normal/x86_64/main.o",
+		"/Users/tajoy/.Trash/DerivedData/luaoc/Build/Intermediates/luaoc.build/Debug/luaoc.build/Objects-normal/x86_64/luaoc.LinkFileList",
+		"/Users/tajoy/.Trash/DerivedData/luaoc/Build/Intermediates/luaoc.build/Debug/luaoc.build/Objects-normal/x86_64/luaoc_dependency_info.dat",
+		"/Users/tajoy/.Trash/DerivedData/luaoc/Build/Intermediates/luaoc.build/Debug/luaoc.build/luaoc.hmap",
+		"/Users/tajoy/.Trash/DerivedData/luaoc/Build/Intermediates/luaoc.build/Debug/luaoc.build/luaoc-all-non-framework-target-headers.hmap",
+		"/Users/tajoy/.Trash/DerivedData/luaoc/Build/Intermediates/luaoc.build/Debug/luaoc.build/dgph",
+		"/Users/tajoy/projects/luaoc/lua2oc.sublime-project",
+		"/Users/tajoy/projects/luaoc/src/objc/_header.lua",
+		"/usr/local/Cellar/luajit/2.1.0-beta3/lib/pkgconfig/luajit.pc",
+		"/Users/tajoy/projects/luaoc/src/main.lua",
+		"/Users/tajoy/projects/luaoc/LuaJIT-2.0.5/Makefile",
+		"/Users/tajoy/projects/luaoc/LuaJIT-2.0.5/src/Makefile",
+		"/Users/tajoy/projects/luaoc/LuaJIT-2.0.5/src/Makefile.dep",
+		"/Users/tajoy/Dropbox/DashData/Snippets.dash",
+		"/Users/tajoy/projects/luaoc/luaoc.xcworkspace/contents.xcworkspacedata",
+		"/Users/tajoy/projects/luaoc/LuaJIT-2.0.5/src/lj.supp",
+		"/Users/tajoy/projects/luaoc/LuaJIT-2.0.5/src/vm_x86.dasc",
+		"/Users/tajoy/projects/luaoc/LuaJIT-2.0.5/src/jit/bc.lua",
+		"/Users/tajoy/projects/luaoc/LuaJIT-2.0.5/src/jit/dump.lua",
+		"/Users/tajoy/projects/luaoc/LuaJIT-2.0.5/src/jit/v.lua",
+		"/Users/tajoy/projects/luaoc/LuaJIT-2.0.5/src/xedkbuild.bat",
+		"/Users/tajoy/projects/luaoc/LuaJIT-2.0.5/src/host/minilua.c",
+		"/Users/tajoy/projects/luaoc/LuaJIT-2.0.5/src/host/README",
+		"/Users/tajoy/Library/LaunchAgents/com.tajoy.startup",
+		"/Users/tajoy/startup.sh",
+		"/Users/tajoy/adsl.txt",
+		"/Users/tajoy/Downloads/万古仙穹www.80txt.com(all)/万古仙穹.txt",
+		"/etc/autofs_amnt",
+		"/Users/tajoy/.zshrc"
+	],
+	"find":
+	{
+		"height": 39.0
+	},
+	"find_in_files":
+	{
+		"height": 129.0,
+		"where_history":
+		[
+			"*.lua, -bin/",
+			"-bin/",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"test_object_reallocFromZone",
+			"function",
+			"objc",
+			"test__SEL___call",
+			"local function",
+			"function",
+			"IGNORE",
+			"RENAME",
+			"getNumberOfArguments",
+			"test_Method_getArgumentInfo",
+			"function _Method:",
+			"function _Method",
+			"Method.",
+			"setIvarLayout",
+			"addProtocol",
+			"addIvar",
+			"function",
+			"voi",
+			"newClass",
+			"NSBundle",
+			"property",
+			"Protocol",
+			"proto",
+			"checkArg",
+			"objc_copy",
+			"objc_registerProtocol",
+			"objc_",
+			"stringWithUTF8String",
+			"SEL",
+			"init",
+			"IMP",
+			"_Class",
+			"_SEL",
+			"outCount",
+			"ffi",
+			"new_cls",
+			"cls",
+			"TODO:",
+			"\n--",
+			"TODO:",
+			"super_cls",
+			"setSuperclass",
+			"function",
+			"functti",
+			"_Class_",
+			"_Class_createInstance",
+			"createInstance",
+			"function",
+			"class_list",
+			"outCount[1]",
+			"i",
+			"createInstance",
+			"objc_constructInstance",
+			"objc_destructInstance",
+			"objc_allocateClassPair",
+			"getMethodByCached",
+			"lookupMethodInherited",
+			"getClassByCached",
+			"getMethodByCached",
+			"cls",
+			"ffi",
+			"test_objc_getRequiredClass",
+			"function",
+			" == ",
+			"method_____",
+			"objc",
+			"$",
+			"n3",
+			"_",
+			"lua",
+			"objc_Method_description",
+			"category",
+			"type_str",
+			"send",
+			"objc_method_description",
+			"MethodList",
+			"free",
+			"propertyListFromStringsFileFormat",
+			"function",
+			"MethodList",
+			"class_copyMethodList",
+			"-- API-",
+			"getMethodList",
+			"__cache_method_list",
+			"getIm",
+			"invoc",
+			"callSelector",
+			"invokeVariableParameterMethod",
+			"getArgument",
+			"new_msgSend10",
+			"objc_msgSend",
+			"api.objc.getClass",
+			"lookUpClass",
+			"objc_getClass",
+			"getClass",
+			"findClass",
+			"getClass",
+			"Method",
+			"method",
+			"Method",
+			"method",
+			"Method",
+			"Method *",
+			"property",
+			"cls",
+			"IGNORE",
+			"str",
+			"char *",
+			"char*",
+			"BOOL",
+			"sel_isEqual",
+			"methodTable",
+			"Class.",
+			"_class",
+			"exportMethodTable",
+			"object_getIndexedIvars",
+			"object_getClassName",
+			"_method",
+			"objc_method_description_list",
+			"objc_method_description",
+			"dst",
+			"_method:_____()",
+			"method:_____()",
+			"object",
+			"objc_AssociationPolicy",
+			"objc_method_list",
+			"objc_method_list\nobjc_method_list",
+			"objc_method_list"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"exportWithMetaTable"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 39.0
+	},
+	"input":
+	{
+		"height": 47.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 545.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "LuaJIT",
+	"project": "lua2oc.sublime-project",
+	"replace":
+	{
+		"height": 74.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				".giti",
+				"luaoc/.gitignore"
+			],
+			[
+				"mess",
+				"objc/message.h"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"~/projects/luaoc/lua2oc.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": false,
+	"side_bar_visible": true,
+	"side_bar_width": 265.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

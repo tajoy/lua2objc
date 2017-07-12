@@ -37,7 +37,6 @@ ffi.cdef[[
 Class class_getSuperclass(Class cls);
 ]]
 function _Class:getSuperclass()
-	-- FIXME: crashed when calling
 	return ffi.C.class_getSuperclass(self)
 end
 
