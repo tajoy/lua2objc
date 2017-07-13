@@ -9,6 +9,6 @@ id objc_unretainedObject(objc_objectptr_t obj);
 objc_objectptr_t objc_unretainedPointer(id obj);
 ]]
 
-ffi.cdef[[
-Class *objc_copyClassList(unsigned int *outCount);
-]]
+
+
+

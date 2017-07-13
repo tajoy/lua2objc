@@ -5,7 +5,7 @@ local object = {}
 local _object = {}
 
 
--- TODO: test api bridge for this below
+-- test api bridge for this below
 
 ffi.cdef[[
 id object_copy(id obj, size_t size);
